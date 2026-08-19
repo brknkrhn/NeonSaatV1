@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Dijital Saat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a4d 25%, #2d0a4d 50%, #1a0a3d 75%, #0a0e27 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .saat {
+            font-size: 120px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            text-shadow:
+                0 0 10px #00ff88,
+                0 0 20px #00ff88,
+                0 0 30px #00ffff,
+                0 0 40px #00ffff,
+                0 0 50px #ff00ff,
+                0 0 60px #ff00ff,
+                inset 0 0 10px rgba(0, 255, 136, 0.5);
+            color: #00ff88;
+            animation: neonFlicker 0.15s infinite;
+            font-variant-numeric: tabular-nums;
+        }
+
+        @keyframes neonFlicker {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px #00ff88,
+                    0 0 20px #00ff88,
+                    0 0 30px #00ffff,
+                    0 0 40px #00ffff,
+                    0 0 50px #ff00ff,
+                    0 0 60px #ff00ff;
+                color: #00ff88;
+            }
+            50% {
+                text-shadow:
+                    0 0 5px #00ff88,
+                    0 0 10px #00ffff,
+                    0 0 15px #ff00ff;
+                color: #00ffdd;
+            }
+        }
+
+        .tarih {
+            font-size: 28px;
+            margin-top: 30px;
+            letter-spacing: 3px;
+            text-shadow:
+                0 0 10px #ff00ff,
+                0 0 20px #ff00ff,
+                0 0 30px #00ffff;
+            color: #ff00ff;
+            animation: neonGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes neonGlow {
+            0%, 100% {
+                opacity: 0.8;
+                filter: brightness(1);
+            }
+            50% {
+                opacity: 1;
+                filter: brightness(1.2);
+            }
+        }
+
+        .sehir {
+            font-size: 18px;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 8px #00ff88,
+                0 0 16px #00ffff;
+            color: #00ffff;
+            opacity: 0.9;
+        }
+
+        .decoration {
+            margin-top: 40px;
+            font-size: 32px;
+            letter-spacing: 10px;
+            text-shadow:
+                0 0 10px #ff00ff,
+                0 0 20px #00ff88;
+            color: #ff00ff;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .info {
+            margin-top: 50px;
+            font-size: 16px;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="saat" id="saat">00:00:00</div>
+        <div class="tarih" id="tarih">Pazartesi, 01 Ocak 2024</div>
+        <div class="sehir">⏱ NEON ZAMAN</div>
+        <div class="decoration">◆ ◆ ◆</div>
+        <div class="info">Gerçek Zamanlı Dijital Saat</div>
+    </div>
+
+    <script>
+        const gunler = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
+        const aylar = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+
+        function saatuGuncelle() {
+            const simdi = new Date();
+            
+            const saat = String(simdi.getHours()).padStart(2, '0');
+            const dakika = String(simdi.getMinutes()).padStart(2, '0');
+            const saniye = String(simdi.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('saat').textContent = `${saat}:${dakika}:${saniye}`;
+            
+            const gun = gunler[simdi.getDay()];
+            const tarih = simdi.getDate();
+            const ay = aylar[simdi.getMonth()];
+            const yil = simdi.getFullYear();
+            
+            document.getElementById('tarih').textContent = `${gun}, ${tarih} ${ay} ${yil}`;
+        }
+
+        saatuGuncelle();
+        setInterval(saatuGuncelle, 1000);
+    </script>
+</body>
+</html>
